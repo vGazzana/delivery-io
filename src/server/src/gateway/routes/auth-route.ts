@@ -94,20 +94,16 @@ export const AUTH_ROUTES: FastifyPluginAsync = async (app) => {
 				await authService.logout(refreshToken);
 			}
 
-			// Sempre limpar cookies no logout
 			authService.clearAuthCookies(reply);
 
 			return reply.success({ message: "Logout successful" });
 		} catch (error) {
-			// Mesmo com erro, limpar cookies
 			authService.clearAuthCookies(reply);
 			return reply.success({ message: "Logout completed" });
 		}
 	});
 
-	// Nova rota para verificar status da autenticação
 	app.get("/status", async (req, reply) => {
-		// Esta rota usa o auto-auth-plugin automaticamente
 		const user = req.user;
 		return reply.success({
 			authenticated: true,
