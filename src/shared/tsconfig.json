@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./",
+    "composite": true,
+    "paths": {
+      "@libs": [
+        "./libs/index.ts"
+      ],
+      "@libs/*": [
+        "./libs/*"
+      ]
+    }
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+}

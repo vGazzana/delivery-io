@@ -1,0 +1,24 @@
+{
+  "name": "@delivery/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch --env-file=.env  ./index.ts",
+    "build": "rm -rf ./dist && tsc -p ./tsconfig.json",
+    "start": "node --env-file=.env ./dist/index.js",
+    "lint": "biome check",
+    "format": "biome format --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "dependencies": {
+    "@delivery/shared": "workspace:*",
+    "@fastify/cookie": "^11.0.2",
+    "fast-jwt": "^6.0.2",
+    "fastify": "^5.6.1",
+    "fastify-plugin": "^5.1.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "delivery-io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:server": "pnpm --filter @delivery/server dev",
+    "build:server": "pnpm --filter @delivery/server build",
+    "format:server": "pnpm --filter @delivery/server format",
+    "lint:server": "pnpm --filter @delivery/server lint",
+    "build:shared": "pnpm --filter @delivery/shared build",
+    "start:client": "pnpm --filter @delivery/client dev",
+    "build:client": "pnpm --filter @delivery/client build",
+    "format:client": "pnpm --filter @delivery/client format",
+    "lint:client": "pnpm --filter @delivery/client lint",
+    "start:all": "pnpm --parallel --filter @delivery/server --filter @delivery/client dev",
+    "build:all": "pnpm build:shared && pnpm --parallel --filter @delivery/server --filter @delivery/client build",
+    "format:all": "biome format --write",
+    "lint:all": "biome check"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@biomejs/biome": "2.2.6",
+    "@types/node": "^24.8.0",
+    "pino-pretty": "^13.1.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "pino": "^10.0.0"
+  }
+}
