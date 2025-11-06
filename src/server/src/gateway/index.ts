@@ -1,11 +1,11 @@
 import type { FastifyInstance } from "fastify";
+import { AUTH_ROUTES } from "../modules/auth/routes";
 import type { GatewayConfig, IGateway } from "./interfaces/gateway-interface";
 import {
 	requestIdPlugin,
 	requestLoggerPlugin,
 	responsePlugin,
 } from "./plugins";
-import { AUTH_ROUTES } from "./routes/auth-route";
 
 export class Gateway implements IGateway {
 	constructor(private app: FastifyInstance) {}
@@ -42,7 +42,7 @@ export class Gateway implements IGateway {
 
 	private async bootstrapRoutes(): Promise<void> {
 		try {
-			await this.app.register(AUTH_ROUTES, { prefix: "/auth" });
+			await this.app.register(AUTH_ROUTES);
 		} catch (error) {
 			if (error instanceof Error) {
 				this.app.log.error(`Gateway route registration error: ${error}`);

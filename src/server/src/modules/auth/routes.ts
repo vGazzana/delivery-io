@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from "fastify";
-import { AuthService } from "../services/auth-service";
+import { AuthService } from "./services/auth-service";
 
 interface LoginBody {
 	email: string;
@@ -16,11 +16,13 @@ interface RefreshBody {
 	refreshToken: string;
 }
 
+const prefix = "/auth";
+
 export const AUTH_ROUTES: FastifyPluginAsync = async (app) => {
 	const authService = new AuthService();
 	const authHandler = { preHandler: authService.authenticate };
 
-	app.post<{ Body: LoginBody }>("/login", async (req, reply) => {
+	app.post<{ Body: LoginBody }>(`${prefix}/login`, async (req, reply) => {
 		try {
 			const { email, password } = req.body;
 
@@ -47,27 +49,27 @@ export const AUTH_ROUTES: FastifyPluginAsync = async (app) => {
 		}
 	});
 
-	app.post<{ Body: RegisterBody }>("/register", async (req, reply) => {
+	app.post<{ Body: RegisterBody }>(`${prefix}/register`, async (req, reply) => {
 		try {
 			const { email, password, name } = req.body;
 
 			if (!email || !password || !name) {
 				return reply.fail("Email, password and name are required", 400);
 			}
-			return reply.success({ userId: "new-user-id" });
+			return reply.success({ userId: "new-user-id" }, 201);
 		} catch (error) {
 			return reply.fail("Registration failed", 500);
 		}
 	});
 
-	app.get("/me", { ...authHandler }, async (req, reply) => {
+	app.get(`${prefix}/me`, { ...authHandler }, async (req, reply) => {
 		const user = req.user;
 		return reply.success({
 			user,
 		});
 	});
 
-	app.post<{ Body: RefreshBody }>("/refresh", async (req, reply) => {
+	app.post<{ Body: RefreshBody }>(`${prefix}/refresh`, async (req, reply) => {
 		try {
 			const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
@@ -86,7 +88,7 @@ export const AUTH_ROUTES: FastifyPluginAsync = async (app) => {
 		}
 	});
 
-	app.post<{ Body: RefreshBody }>("/logout", async (req, reply) => {
+	app.post<{ Body: RefreshBody }>(`${prefix}/logout`, async (req, reply) => {
 		try {
 			const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
@@ -103,7 +105,7 @@ export const AUTH_ROUTES: FastifyPluginAsync = async (app) => {
 		}
 	});
 
-	app.get("/status", async (req, reply) => {
+	app.get(`${prefix}/status`, async (req, reply) => {
 		const user = req.user;
 		return reply.success({
 			authenticated: true,

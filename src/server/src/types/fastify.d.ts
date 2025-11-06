@@ -21,7 +21,7 @@ declare module "fastify" {
 		requestId: string;
 		success: <T>(data: T, statusCode?: number) => void;
 		fail: (message: string, statusCode?: number) => void;
-		setCookie: (name: string, value: string, options?: any) => this;
-		clearCookie: (name: string, options?: any) => this;
+		setCookie: (name: string, value: string, options?: unknown) => this;
+		clearCookie: (name: string, options?: unknown) => this;
 	}
 }

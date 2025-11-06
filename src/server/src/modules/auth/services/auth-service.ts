@@ -85,6 +85,7 @@ export class AuthService {
 			secure: process.env.NODE_ENV === "production",
 			sameSite: "strict",
 			maxAge: 15 * 60 * 1000, // 15 minutes
+			path: "/",
 		});
 
 		reply.setCookie("refreshToken", tokens.refreshToken, {
@@ -92,11 +93,24 @@ export class AuthService {
 			secure: process.env.NODE_ENV === "production",
 			sameSite: "strict",
 			maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+			path: "/",
 		});
 	}
 
 	clearAuthCookies(reply: FastifyReply) {
-		reply.clearCookie("accessToken");
-		reply.clearCookie("refreshToken");
+		reply.clearCookie("accessToken", {
+			path: "/",
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+			sameSite: "strict",
+			expires: new Date(0),
+		});
+		reply.clearCookie("refreshToken", {
+			path: "/",
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+			sameSite: "strict",
+			expires: new Date(0),
+		});
 	}
 }
