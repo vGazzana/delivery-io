@@ -6,7 +6,11 @@ export default fp(async (app) => {
 			{
 				method: req.method,
 				url: req.url,
-				input: req.body,
+				input: {
+					query: req.query,
+					params: req.params,
+					body: req.body,
+				},
 				headers: req.headers,
 			},
 			"[GATEWAY] Incoming request",

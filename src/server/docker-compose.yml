@@ -1,0 +1,16 @@
+services:
+  delivery_io-database:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-delivery_io_user}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-delivery_io_password}
+      POSTGRES_DB: ${DATABASE_NAME:-delivery_io_database}
+    ports:
+      - "5432:5432"
+    volumes:
+      - delivery_io_db_data:/var/lib/postgresql/data
+
+volumes:
+  delivery_io_db_data:

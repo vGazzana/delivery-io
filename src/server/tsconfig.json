@@ -4,9 +4,11 @@
     "outDir": "./dist",
     "rootDir": "./",
     "composite": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "include": [
     "./**/*.ts",
     "./.env"
-  ],
+  ]
 }
