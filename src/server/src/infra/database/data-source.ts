@@ -9,7 +9,7 @@ export const ServerDataSource = new DataSource({
 	database: process.env.DATABASE_NAME || "delivery_io_database",
 	synchronize: false,
 	logging: false,
-	entities: ["src/modules/**/entities/*.ts"],
+	entities: ["src/modules/**/entities/*-entity.ts"],
 	migrations: ["src/infra/database/migrations/**/*.ts"],
 	subscribers: [],
 });
